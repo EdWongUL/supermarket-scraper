@@ -1,0 +1,19 @@
+@mixin fullWidthModule() {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	margin: 0 auto;
+}
+
+// Use for all "content-width" widgets
+@mixin contentWidthModule() {
+	max-width: $siteWidth;
+	padding: 0 30px;
+
+	@include fullWidthModule;
+
+	@include tablet {
+		width: 100%;
+		padding: 0 15px;
+	}
+}

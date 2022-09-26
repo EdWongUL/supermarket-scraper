@@ -1,0 +1,208 @@
+@mixin headerFont {
+	margin-top: 0;
+	font-family: "Ideal Sans", sans-serif;
+	font-size: 20px;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+
+	@include tablet {
+		font-size: 80px;
+		line-height: 80px;
+	}
+}
+
+@mixin subheaderFont {
+	margin-top: 0;
+	font-family: "Ideal Sans", sans-serif;
+	font-size: 20px;
+	font-weight: 500;
+
+	@include tablet {
+		font-size: 30px;
+		line-height: 30px;
+	}
+}
+
+@mixin standfirstText($size: 30px) {
+	margin-top: 0;
+	font-family: Arial, sans-serif;
+	font-size: $size;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: $size;
+}
+
+@mixin bodyFont($size: 20px, $diff: 1.3) {
+	margin-top: 0;
+	font-family: Arial, sans-serif;
+	font-size: $size;
+	font-weight: 300;
+	letter-spacing: -0.02em;
+	line-height: $size * $diff;
+}
+
+@mixin standardText {
+	margin-top: 0;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	letter-spacing: -0.4px;
+	line-height: 16px;
+}
+
+@mixin contentStyles {
+	margin-bottom: 50px;
+
+	@include tablet {
+		margin-bottom: 85px;
+	}
+
+	& > p {
+		@include narrowContent;
+		@include standardText;
+
+		margin-bottom: 30px;
+		font-size: 20px;
+		line-height: 30px;
+	}
+
+	figure {
+		position: relative;
+		width: 100%;
+		padding: 0 20px;
+		margin: 30px auto;
+		border-radius: 42px;
+
+		@include tablet {
+			margin: 60px auto;
+		}
+
+		@include laptop {
+			width: 900px;
+			padding: 0;
+		}
+
+		@include desktop {
+			width: 1080px;
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+		}
+
+		figcaption {
+			@include bodyFont;
+
+			margin-top: 12px;
+			font-size: 12px;
+			letter-spacing: -0.24px;
+			line-height: 20px;
+		}
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@include narrowContent;
+
+		margin-bottom: 20px;
+		font-family: Arial, sans-serif;
+		font-weight: 600;
+		letter-spacing: -0.05em;
+		line-height: 1.2;
+	}
+
+	table {
+		@include narrowContent;
+
+		margin: 30px auto;
+		border-collapse: collapse;
+		table-layout: fixed;
+
+		@media (max-width: #{$tablet - 1}) {
+			width: 335px;
+		}
+
+		tr,
+		td {
+			padding: 5px;
+			border: 1px solid rgba(#707070, 0.25);
+			font-size: 20px;
+			line-height: 30px;
+
+			@include standardText;
+		}
+
+		@include tablet {
+			margin: 50px auto;
+		}
+	}
+
+	ul {
+		@include narrowContent;
+
+		box-sizing: border-box;
+		padding-left: 30px;
+		list-style: disc;
+
+		li {
+			@include standardText;
+
+			font-size: 20px;
+			line-height: 30px;
+		}
+	}
+
+	ol {
+		@include narrowContent;
+
+		box-sizing: border-box;
+		padding-left: 30px;
+		list-style: decimal;
+
+		li {
+			@include standardText;
+
+			font-size: 20px;
+			line-height: 30px;
+		}
+	}
+
+	blockquote {
+		padding: 53px 36px 47px;
+		margin: 40px 0;
+		color: $white;
+
+		@include tablet {
+			margin: 130px 0;
+		}
+
+		p {
+			@include narrowContent;
+			@include standfirstText(20px);
+
+			margin-bottom: 20px;
+			line-height: 30px;
+			text-align: center;
+
+			@include tablet {
+				font-size: 40px;
+				line-height: 40px;
+			}
+		}
+
+		footer {
+			@include narrowContent;
+			@include bodyFont;
+
+			font-size: 12px;
+			letter-spacing: -0.24px;
+			line-height: 20px;
+			text-align: center;
+		}
+	}
+}

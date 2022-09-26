@@ -1,0 +1,134 @@
+/*
+// include any custom fonts in here
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+// if they are self hosted, put the in the /public/fonts/ folder
+@font-face {
+	font-family: 'Open Sans';
+	src: url('/fonts/OpenSans/OpenSans.woff2'),
+		url('/fonts/OpenSans/OpenSans.woff');
+} */
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-weight: 100;
+	src: url("/fonts/IdealSans-Thin-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-style: italic;
+	font-weight: 100;
+	src: url("/fonts/IdealSans-ThinItalic-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-weight: 200;
+	src: url("/fonts/IdealSans-XLight-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-style: italic;
+	font-weight: 200;
+	src: url("/fonts/IdealSans-XLight-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-weight: 300;
+	src: url("/fonts/IdealSans-Light-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-style: italic;
+	font-weight: 300;
+	src: url("/fonts/IdealSans-LightItalic-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-weight: 400;
+	src: url("/fonts/IdealSans-Book-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-style: italic;
+	font-weight: 400;
+	src: url("/fonts/IdealSans-BookItalic-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-weight: 500;
+	src: url("/fonts/IdealSans-Medium-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-style: italic;
+	font-weight: 500;
+	src: url("/fonts/IdealSans-MediumItalic-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-weight: 600;
+	src: url("/fonts/IdealSans-Semibold-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-style: italic;
+	font-weight: 600;
+	src: url("/fonts/IdealSans-SemiboldItalic-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-weight: 700;
+	src: url("/fonts/IdealSans-Bold-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-style: italic;
+	font-weight: 700;
+	src: url("/fonts/IdealSans-BoldItalic-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-weight: 900;
+	src: url("/fonts/IdealSans-Black-Pro.otf");
+}
+
+@font-face {
+	font-family: "Ideal Sans";
+	font-style: italic;
+	font-weight: 900;
+	src: url("/fonts/IdealSans-BlackItalic-Pro.otf");
+}
+
+// ----------------
+
+@font-face {
+	font-family: "Ideal Nums Book";
+	font-weight: 400;
+	src: url("/fonts/idealnums-book.ttf");
+}
+
+@font-face {
+	font-family: "Ideal Nums Semibold";
+	font-weight: 600;
+	src: url("/fonts/idealnums-semibold.ttf");
+}
+
+@font-face {
+	font-family: "Ideal Nums Bold";
+	font-weight: 700;
+	src: url("/fonts/idealnums-bold.ttf");
+}
