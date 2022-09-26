@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Knex } from 'knex';
 import { Item } from '../getData';
 
@@ -27,45 +28,53 @@ export const getAsdaItems = async (
 			},
 			body: `{"requestorigin":"gi","contract":"web/cms/product-details-page","variables":{"is_eat_and_collect":false,"store_id":"4565","type":"content","page_size":60,"page":1,"request_origin":"gi","ship_date":1663804800000,"payload":{"page_id":"${productId}","page_type":"productDetailsPage","page_meta_info":true}}}`,
 		};
+		try {
+			const temp = await fetch('https://groceries.asda.com/api/bff/graphql', options);
+			const jsonData = await temp.json();
+			const priceTotal = Number(
+				jsonData.data.tempo_cms_content.zones[0].configs.products.items[0].price.price_info.price.slice(
+					1
+				)
+			);
+			const name =
+				jsonData.data.tempo_cms_content.zones[0].configs.products.items[0].item.item_name;
+			const gtin =
+				jsonData.data.tempo_cms_content.zones[0].configs.products.items[0].price.upc;
 
-		const temp = await fetch('https://groceries.asda.com/api/bff/graphql', options);
-		const jsonData = await temp.json();
-		const priceTotal = Number(
-			jsonData.data.tempo_cms_content.zones[0].configs.products.items[0].price.price_info.price.slice(
-				1
-			)
-		);
-		const name =
-			jsonData.data.tempo_cms_content.zones[0].configs.products.items[0].item.item_name;
-		const gtin = jsonData.data.tempo_cms_content.zones[0].configs.products.items[0].price.upc;
+			const emptyItem = {} as Item;
+			emptyItem.item_name = name;
+			emptyItem.GTIN = gtin;
 
-		const emptyItem = {} as Item;
-		emptyItem.item_name = name;
-		emptyItem.GTIN = gtin;
-
-		// select the item from the db
-		const itemResult = await knexInstance('items').where(emptyItem).select('id');
-		if (itemResult.length === 0) {
-			// item does not yet exist
-			await knexInstance('items').insert(emptyItem);
-		}
-		// get the item_id
-		const itemId = await knexInstance('items').where(emptyItem).select('id');
-		// check price
-		const priceId = await knexInstance('prices').where({ store_link: itemUrl }).select('id');
-		if (priceId.length > 0) {
-			// exists in price table, update the price
-			await knexInstance('prices').where({ store_link: itemUrl }).update({
-				price: priceTotal,
-			});
-		} else {
-			const price = {
-				item_id: itemId[0].id, //assume for the first one
-				store_id: site.store_id,
-				store_link: itemUrl,
-				price: priceTotal,
-			};
-			await knexInstance('prices').insert(price);
+			// select the item from the db
+			const itemResult = await knexInstance('items').where(emptyItem).select('id');
+			if (itemResult.length === 0) {
+				// item does not yet exist
+				await knexInstance('items').insert(emptyItem);
+			}
+			// get the item_id
+			const itemId = await knexInstance('items').where(emptyItem).select('id');
+			// check price
+			const priceId = await knexInstance('prices')
+				.where({ store_link: itemUrl })
+				.select('id');
+			if (priceId.length > 0) {
+				// exists in price table, update the price
+				await knexInstance('prices').where({ store_link: itemUrl }).update({
+					price: priceTotal,
+				});
+			} else {
+				const price = {
+					item_id: itemId[0].id, //assume for the first one
+					store_id: site.store_id,
+					store_link: itemUrl,
+					price: priceTotal,
+				};
+				await knexInstance('prices').insert(price);
+			}
+		} catch (e) {
+			console.log('error in fetching Asda item...');
+			console.log(itemUrl);
+			console.log(e);
 		}
 	}
 };

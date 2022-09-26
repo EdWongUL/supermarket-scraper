@@ -34,7 +34,9 @@ const HomeComponent: React.ComponentType<HomeComponentProps> = ({}) => {
 		};
 
 		populate();
-		// getItems();
+		if (false) {
+			getItems();
+		}
 	}, []);
 
 	useEffect(() => {

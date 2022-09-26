@@ -4,7 +4,9 @@ import { Knex } from 'knex';
 import cheerio from 'cheerio';
 import { getTescoItems } from './store_helpers/Tesco';
 import { getAsdaItems } from './store_helpers/Asda';
-import { getOcadoItems } from './store_helpers/Ocado';
+// import { getOcadoItems } from './store_helpers/Ocado';
+// import { getAldiItems } from './store_helpers/Aldi';
+// import { getMorrisonsItems } from './store_helpers/Morrisons';
 
 const config: Knex.Config = {
 	client: 'sqlite3',
@@ -69,7 +71,7 @@ const initialPopulation = async (res: NextApiResponse) => {
 
 	console.log(site_maps);
 
-	site_maps.map(async (site: { store_id: number; site_map: string }, idx) => {
+	site_maps.map(async (site: { store_id: number; site_map: string }) => {
 		const response = await fetch(site.site_map, {
 			method: 'GET',
 			headers: {
@@ -80,15 +82,21 @@ const initialPopulation = async (res: NextApiResponse) => {
 		});
 		const body = await response.text();
 		const $ = cheerio.load(body);
-		const full = $('loc').get() as any[];
+		const full = $('loc').get() as never[];
 
 		if (site.store_id === 1) {
-			// await getTescoItems(full, site, knexInstance);
+			await getTescoItems(full, site, knexInstance);
 		} else if (site.store_id === 3) {
-			// await getAsdaItems(full, site, knexInstance);
-		} else if (site.store_id === 4 && idx === 3) {
-			console.log(idx);
-			await getOcadoItems(full, site, knexInstance);
+			await getAsdaItems(full, site, knexInstance);
+		} else if (site.store_id === 4) {
+			// TODO ocado doesn't work due to redirects?
+			// await getOcadoItems(full, site, knexInstance);
+		} else if (site.store_id === 5) {
+			// TODO aldi seems very inconsistent, with many items no longer on sale
+			// await getAldiItems(full, site, knexInstance);
+		} else if (site.store_id === 6) {
+			// TODO also gets redirect error
+			// await getMorrisonsItems(full, site, knexInstance);
 		}
 	});
 
